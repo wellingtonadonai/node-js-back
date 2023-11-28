@@ -1,13 +1,23 @@
+import fs from 'fs';
 import chalk from 'chalk';
 
-console.log(chalk.blue('olá mundo'));
+
+
+function trataErros (erro) {
+    throw new Error (chalk.red(erro.code, 'nao ha arquivo no diretorio'));
+};
+
+function pegaArquivo (caminhoDoArquivo){
+    const encoding = 'utf-8';
+    fs.readFile (caminhoDoArquivo, encoding, (erro, texto) => {
+        if (erro){
+        trataErros(erro);
+        };
+        console.log(chalk.green(texto));
+    });
+
+}
+pegaArquivo('./texto.md')
 
 
 
-console.log(`A interface File provê informações sobre arquivos e permite ao JavaScript  a acessar seu conteúdo.
-São geralmente recuperados a partir de um objeto [FileList]
-(https://developer.mozilla.org/pt-BR/docs/Web/API/FileList) que é retornado como 
-resultado da seleção, pelo usuário, de arquivos através do elemento [<input>]
-(https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/Input), a partir do objeto
- [DataTransfer](https://developer.mozilla.org/pt-BR/docs/Web/API/DataTransfer) 
-utilizado em operações de arrastar e soltar, ou a partir da API`);
